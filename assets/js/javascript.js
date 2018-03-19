@@ -71,13 +71,13 @@ function displayCarGIFs() {
             var pRating = $("<p>").text("Rating: " + rating);
 
             // Append car div to gifs-wrapper
-            gifsWrapper.append(pRating);
+            carItemDiv.append(pRating);
 
             // Creating an element to hold the image
             var image = $("<img>").attr("src", imageAnimated);
 
             // Append car div to gifs-wrapper
-            gifsWrapper.append(image);
+            carItemDiv.append(image);
             
         }
         
