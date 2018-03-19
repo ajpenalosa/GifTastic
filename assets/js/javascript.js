@@ -3,7 +3,7 @@
 var APIKey = "C5cZ4WxTowpUO5MmUqO7BVQ3QLwg8zxx";
 
 // Array of cars
-var cars = ["corolla", "camry", "sienna", "rav4", "4runner", "tesla", "civic", "accord", "crv", "highlander", "land rover", "is 250", "is 350", "s2000", "mini cooper", "countryman", "ridgeline", "sentra", "versa", "maxima"];
+var cars = ["corolla", "camry", "rav4", "4runner", "tesla", "civic", "accord", "land rover", "is 250", "is 350", "s2000", "mini cooper", "countryman", "ridgeline", "sentra", "versa", "maxima", "mazda3", "mazda6", "f-150"];
 
 // Function for displaying car data
 function renderButtons() {
@@ -56,7 +56,7 @@ function displayCarGIFs() {
             var rating = response.data[i].rating;
 
             // Store animated image
-            var imageAnimated = response.data[i].images.fixed_height.url;
+            var imageAnimate = response.data[i].images.fixed_height.url;
 
             // Store still image
             var imageStill = response.data[i].images.fixed_height_still.url;
@@ -74,19 +74,24 @@ function displayCarGIFs() {
             carItemDiv.append(pRating);
 
             // Creating an element to hold the image
-            var image = $("<img>").attr("src", imageAnimated);
+            var image = $("<img class='car-image'>");
+
+            // Setting image attributes
+            image.attr("src", imageStill);
+            image.attr("data-still", imageStill);
+            image.attr("data-animate", imageAnimate);
+            image.attr("data-state", "still");
+            image.addClass("car-image");
 
             // Append car div to gifs-wrapper
             carItemDiv.append(image);
             
-        }
-        
-    console.log(response.data);
+        };
 
     });
 };
 
-// This function handles events where a car button is clicked
+// This function handles events where add car button is clicked
 $("#add-car").on("click", function(event) {
   event.preventDefault();
   // This line grabs the input from the text box
@@ -101,3 +106,21 @@ $("#add-car").on("click", function(event) {
 
 // Adding a click event listener to all elements with a class of "car"
 $(document).on("click", ".car", displayCarGIFs);
+
+// Pauses or plays gif on click
+$(document).on("click", ".car-image", function() {
+
+    console.log("hello");
+
+    // Grabs the state attribute of the image
+    var state = $(this).attr("data-state");
+
+    if ( state === "still" ) {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+    } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+    }
+
+});
