@@ -1,0 +1,9 @@
+/*---- Car Buttons -----*/
+
+.car-buttons {
+    padding-bottom: 30px;
+}
+
+button.car {
+    margin: 10px 10px 0 0;
+}
