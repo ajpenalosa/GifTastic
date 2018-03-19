@@ -97,8 +97,13 @@ $("#add-car").on("click", function(event) {
   // This line grabs the input from the text box
   var addCar = $("#car-input").val().trim();
 
-  // Adding car from the text box to our array
-  cars.push(addCar);
+  // Push input to cars array if field is not blank and does not exist already
+  if ( addCar !== "" && !cars.includes(addCar)) {
+
+    // Adding car from the text box to our array
+    cars.push(addCar);
+
+  }
 
   // Calling renderButtons which handles the processing of our cars array
   renderButtons();
