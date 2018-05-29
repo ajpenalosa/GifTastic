@@ -80,11 +80,21 @@ $(document).ready(function() {
                 // Append car div to gif-div
                 gifsWrapper.append(carItemDiv);
 
+                if (gifTitle) {
+                    displayedTitle = gifTitle;
+                }
+                else {
+                    displayedTitle = "No Title";
+                }
+
+                // Creating Title
+                var pTitle = $("<p class='displayed-title'>").html(displayedTitle);
+
                 // Creating an element to hold the rating
                 var pRating = $("<p>").html("Rating: <span class='rating'>" + rating + "</span>");
 
                 // Append rating to car div
-                carItemDiv.append(pRating);
+                carItemDiv.append(pTitle, pRating);
 
                 // Creating an element to hold the image
                 var image = $("<img class='car-image img-fluid'>");
