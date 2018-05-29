@@ -38,7 +38,7 @@ $(document).ready(function() {
     // displayCarGIFs function re-renders the HTML to display the appropriate content
     function displayCarGIFs() {
 
-        var limit = 10;
+        var limit = 12;
         var car = $(this).attr("data-name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIKey + "&q=" + car + "&limit=" + limit;
 
