@@ -20,6 +20,11 @@ button.car {
     background-color: #EFEFEF;
 }
 
+.displayed-title {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
 .rating {
     text-transform: uppercase;
 }
