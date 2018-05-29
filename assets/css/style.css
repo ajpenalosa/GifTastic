@@ -11,6 +11,15 @@ button.car {
 /*---- Gifs Wrapper -----*/
 
 .car-item {
-    float: left;
-    padding: 0 10px 10px 0;
+    padding: 20px;
+    cursor: pointer;
+    transition: all .5s ease;
+}
+
+.car-item:hover {
+    background-color: #EFEFEF;
+}
+
+.rating {
+    text-transform: uppercase;
 }
