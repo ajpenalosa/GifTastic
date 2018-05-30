@@ -10,6 +10,12 @@ $(document).ready(function() {
     var modalBody = $(".modal-body");
     var modalTitle = $('.modal-title');
 
+    // Referencing car buttons div
+    var carButtons = $(".car-buttons");
+
+    // Empty array for new cars
+    var newCars = [];
+
     // Function for displaying car data
     function renderButtons() {
 
@@ -28,7 +34,31 @@ $(document).ready(function() {
             // Providing the initial button text
             a.text(cars[i]);
             // Adding the button to the car-buttons div
-            $(".car-buttons").append(a);
+            carButtons.append(a);
+        }
+
+        // If there is an item in localStorage called newCars
+        if ( localStorage.getItem("newCars") ) {
+
+            // Parse the newCars string in localStorage and save it in the newCars variable
+            newCars = JSON.parse(localStorage.getItem("newCars"));
+
+            // Loop to create a new button for each item in the newCars array
+            for ( var j = 0; j < newCars.length; j++ ) {
+
+                // Dynamically generating a button for the new car
+                var newButton = $("<button>");
+                // Adding a class of car to the button
+                newButton.addClass("car btn btn-primary");
+                // Adding a data-attribute
+                newButton.attr("data-name", newCars[j]);
+                // Providing the initial button text
+                newButton.text(newCars[j]);
+                // Adding the button to the car-buttons div
+                carButtons.append(newButton);
+
+            }
+
         }
     };
 
@@ -126,15 +156,35 @@ $(document).ready(function() {
         // This line grabs the input from the text box
         var addCar = $("#car-input").val().trim();
 
-        // Push input to cars array if field is not blank and does not exist already
-        if ( addCar !== "" && !cars.includes(addCar)) {
+        // If there are new cars in local storage
+        // && if the new car is not in the cars array
+        // && if the new car is not in the new cars array
+        if ( localStorage.getItem("newCars") && addCar !== "" && !cars.includes(addCar) && !newCars.includes(addCar) ) {
 
-            // Adding car from the text box to our array
-            cars.push(addCar);
+            // Parse the newCars string in localStorage and save it in the newCars variable
+            newCars = JSON.parse(localStorage.getItem("newCars"));
+
+            // Push the new car into the newCars array
+            newCars.push(addCar);
+
+            // Store the array back into localStorage
+            localStorage.setItem("newCars", JSON.stringify(newCars));
         }
 
-        // Calling renderButtons which handles the processing of our cars array
+        // Push input to new cars array if field is not blank and does not exist already
+        else if ( addCar !== "" && !cars.includes(addCar) && !newCars.includes(addCar) ) {
+            
+            newCars.push(addCar);
+
+            // Put it in localStorage
+            localStorage.setItem("newCars", JSON.stringify(newCars));
+
+        }
+
         renderButtons();
+
+        // Clears the input field
+        $("#car-input").val("");
 
     });
 
@@ -172,5 +222,12 @@ $(document).ready(function() {
         $(this).children("img").attr("src", $(this).attr("data-still"));
 
     });
+
+    $(".clear-new").on("click", function () {
+        newCars = [];
+        localStorage.clear();
+        console.log(localStorage);
+        renderButtons();
+    })
     
 }); // End of Document Ready
